@@ -10,7 +10,7 @@ let voices = [];
 
 // Functions
 
-//To generated the option for the voices and languages
+//To generate the option for the voices and languages
 function populateVoices() {
   voices = this.getVoices();
   voicesDropdown.innerHTML = voices
