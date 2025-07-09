@@ -1,4 +1,4 @@
-
+// Variables
 const msg = new SpeechSynthesisUtterance();
 let voices = [];
 const voicesDropdown = document.querySelector('[name="voice"]');
@@ -6,6 +6,9 @@ const options = document.querySelectorAll('[type="range"], [name="text"]');
 const speakButton = document.querySelector("#speak");
 const stopButton = document.querySelector("#stop");
 
+// Functions
+
+//To generated the option for the voices and languages
 function populateVoices() {
   voices = this.getVoices();
   voicesDropdown.innerHTML = voices
@@ -17,30 +20,27 @@ function populateVoices() {
   // console.log(voices);
 }
 
+// This will change the voices based on seleceted model
 function setVoice() {
   msg.voice = voices.find((voice) => voice.name === this.value);
   // console.log("Hello");
 }
-function resetSpeak(startOver = true) {
-  if (startOver) {
-    speechSynthesis.cancel();
+
+// It will start the Speech
+function resetSpeak(startspeech = true) {
+  speechSynthesis.cancel();
+  if (startspeech) {
     speechSynthesis.speak(msg);
   }
 }
-function stopSpeak() {}
 
+// This changes the pitch and speed of the voice
 function setOptions() {
   msg[this.name] = this.value;
-  // resetSpeak();
+  resetSpeak(false);
 }
 
-function changeOptions() {
-  // options[1].value
-  if (this.name === "pitch") msg.pitch = this.value;
-  // console.log(msg);
-}
-
-options.forEach((option) => option.addEventListener("change", changeOptions));
+// EventListener
 voicesDropdown.addEventListener("change", setVoice);
 msg.text = document.querySelector("[name='text']").value;
 options.forEach((data) => data.addEventListener("change", setOptions));
